@@ -21,4 +21,11 @@
   The correlation coefficient between the predicted and actual values typically lies between 0.2 and 0.5. Using Pearson correlation coefficient to relate connectivity matrix and behavioral measures then using thresholding to select edges that are significant (p<0.01), the correlation coefficient of the actual and predicted value of the model with the best performance is 0.2698 for the negative model and 0.5009 for the positive model for our data.
   
   In addition to using Pearson correlation to relate connectivity matrix and behavioral measures and using thresholding to select edges that are significant, we also tried out different variations of correlation methods including rank correlation and robust regression and feature selection methods including sigmoidal weighting. Our results showed that for the positive model, using robust regression and thresholding yields the best result (r = 0.508, **Figure 2**) while for the negative model using rank correlation and sigmoidal weighting yields the best result (r = -0.786, **Figure 3**). A more comprehensive result is shown in **Figure 1**.
-  [Figure 1, 2, 3]
+  
+  ![table of result](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/results%20table.png)
+  
+  ![predicted vs. actual positive](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/positive%20model%20predicted%20vs.%20actual.png)
+  
+  ![predicted vs. actual negative] (https://github.com/Lin-Brain-Lab/machine_learning/blob/main/negative%20model%20predicted%20vs.%20actual.png)
+  
+  
