@@ -6,6 +6,9 @@
   Connectivity-based analysis in Neuroscience takes the connectivity matrix of the individual brain areas and uses it as an independent variable to predict specific characteristics. The connectivity matrix is obtained by correlating each pair of brain areas. Each entry of the connectivity matrix is called an “edge” and it depicts one brain region's influence on the other region. One specific model that uses the connectivity matrix to predict behavior is the Connectome-based predictive modelling (CBPM) (Finn et al., 2015; Finn & Bandettini, 2021; Shen et al., 2017), which selects the most important edges in the connectivity matrix based on significance and build a linear prediction model. Past studies that utilized this model have used individual connectivity matrices to predict behavior (Finn & Bandettini, 2021) and identify subjects from a large group (Finn et al., 2015).  For a more detailed explanation of the flow chart of the CBPM, please check out the presentation section.
   
 ![image of flow chart](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/CBPM%20flowchart.png)
+*Flow chart of the Connectome Based Predictive Modelling*
+
+
 ### Past Analysis
 
   Most analyses used the Spearman correlation coefficient between the observed and predicted scores across subjects to assess and compare the prediction accuracy. The value of the correlation coefficient is expected to lie between 0.2 to 0.5. For instance, in Finn & Bandettini’s (2021) paper, using CBPM to predict cognition or behavior scores by resting state or movie-based functional connectivity, the correlation coefficient lies between 0.1 and 0.4 for different conditions. 
@@ -26,6 +29,6 @@
   
   ![predicted vs. actual positive](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/positive%20model%20predicted%20vs.%20actual.png)
   
-  ![predicted vs. actual negative] (https://github.com/Lin-Brain-Lab/machine_learning/blob/main/negative%20model%20predicted%20vs.%20actual.png)
+  ![predicted vs. actual negative](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/negative%20model%20predicted%20vs.%20actual.png)
   
   
