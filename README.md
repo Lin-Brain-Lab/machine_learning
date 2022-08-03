@@ -28,8 +28,15 @@
   
   ![table of result](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/results%20table.png)
   
+  * **Figure 1**: Correlation Coefficient between Predicted vs. Actual value*
+  
   ![predicted vs. actual positive](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/positive%20model%20predicted%20vs.%20actual.png)
   
+  
+  * **Figure 2**: Predicted vs. Actual plot and the fitted line for positive model (Robust regression/Threshold)*
+  
   ![predicted vs. actual negative](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/negative%20model%20predicted%20vs.%20actual.png)
+  
+  * **Figure 3**: Predicted vs. Actual plot and the fitted line for negative model (Rank Correlation/Sigmoidal weighting)*
   
   
