@@ -1,4 +1,3 @@
-from tkinter.tix import MAX
 import torch
 import torch.nn as nn
 import config
@@ -84,7 +83,7 @@ def train_(model):
             torch.save(model.state_dict(), config.checkpoint_loc + f'/best_weights.pth')
 
 
-model = Unet(2, 2, 6)
+model = Unet(2, 2, 6).to(device=device)
 criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=config.lr)
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'max', factor=0.2, patience=3, threshold=1e-3, threshold_mode='rel', min_lr=1e-5)
