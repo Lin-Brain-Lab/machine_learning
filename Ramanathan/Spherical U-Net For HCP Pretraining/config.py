@@ -1,3 +1,6 @@
+import logging
+
+
 batch_size_spatial      = 512                # time steps per batch for spatial AE training
 cuda                    = False              # cuda or cpu
 reduce_LR_On_Plateau    = True               # lr control
@@ -8,5 +11,6 @@ num_epochs_temporal     = 50                 # max number of epochs to train the
 checkpoint_loc = './checkpoints'             # location to store weigths
 batch_size_temporal     = 32                 # samples per reduction
 temporal_model          = 'Transformer'      # 'Transformer' or 'LSTM_AE'
-data_cat = 'EMOTION'                         # EMOTION, SOCIAL or REST
-data_root = '/space_lin1/hcp'                # location of subject data
+data_cat                = 'EMOTION'          # EMOTION, SOCIAL or REST
+data_root               = '/space_lin1/hcp'  # location of subject data
+logging_file            = 'log.txt'          # name for log file

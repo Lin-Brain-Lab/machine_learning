@@ -1,5 +1,5 @@
 """
-Original Source: Fenqiang Zhao, https://github.com/zhaofenqiang
+Reference: Fenqiang Zhao, https://github.com/zhaofenqiang
 
 """
 
@@ -58,7 +58,7 @@ class Unet(nn.Module):
         x = self.outc(x)
         x = np.swapaxes(x, 1, 0)
         x = np.swapaxes(x, 1, 2)
-        return x
+        return x, xs[-1]
 
 
 mse = nn.MSELoss()
