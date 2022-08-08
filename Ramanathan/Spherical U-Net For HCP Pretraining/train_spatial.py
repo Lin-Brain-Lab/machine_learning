@@ -15,20 +15,20 @@ else:
     device = 'cpu'
 
 if config.data_cat == 'EMOTION':
-    Dataset = EmotionDataset_Spatial(config.data_root)
+    _Dataset = EmotionDataset_Spatial(config.data_root)
 elif config.data_cat == 'SOCIAL':
-    Dataset = SocialDataset_Spatial(config.data_root)
+    _Dataset = SocialDataset_Spatial(config.data_root)
 elif config.data_cat == 'REST':
-    Dataset = RestDataset_Spatial(config.data_root)
+    _Dataset = RestDataset_Spatial(config.data_root)
 else:
     print(f" *{config.data_cat}* category of data not handled..")
     config.logging.debug(f" *{config.data_cat}* category of data not handled..")
     exit()
 
-Dataset = split_dataset(Dataset, 0.2)
+_Dataset = split_dataset(_Dataset, 0.2)
 
-train_dataloader = torch.utils.data.DataLoader(Dataset['train'], batch_size=config.batch_size, shuffle=True, pin_memory=True)
-val_dataloader = torch.utils.data.DataLoader(Dataset['test'], batch_size=config.batch_size, shuffle=False, pin_memory=True)
+train_dataloader = torch.utils.data.DataLoader(_Dataset['train'], batch_size=config.batch_size_spatial, shuffle=True, pin_memory=True)
+val_dataloader = torch.utils.data.DataLoader(_Dataset['test'], batch_size=config.batch_size_spatial, shuffle=False, pin_memory=True)
 
 def batch_train(model, data):
     model.train()
@@ -86,7 +86,7 @@ def train_(model):
 
 model = Unet(2, 2, 6)
 criterion = nn.MSELoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
+optimizer = torch.optim.Adam(model.parameters(), lr=config.lr)
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'max', factor=0.2, patience=3, threshold=1e-3, threshold_mode='rel', min_lr=1e-5)
 
 train_(model)

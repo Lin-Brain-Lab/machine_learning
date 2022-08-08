@@ -6,11 +6,18 @@ import torch
 from torch.utils.data import Dataset
 from torch.utils.data import Subset
 from sklearn.model_selection import train_test_split
-from static_vars import static_vars
 
+
+def static_vars(**kwargs):
+    def decorate(func):
+        for k in kwargs:
+            setattr(func, k, kwargs[k])
+        return func
+
+    return decorate
 
 def split_dataset(data , split=0.2, seed = 42):
-    train_idx, test_idx = train_test_split(list(range(len(dataset))), test_size = split, seed = seed)
+    train_idx, test_idx = train_test_split(list(range(len(data))), test_size = split, random_state = seed)
     dataset = {}
     dataset['train'] = Subset(data, train_idx)
     dataset['test'] = Subset(data, test_idx)
@@ -29,7 +36,7 @@ def read_file(path):
         read_file.file_name = path
         read_file.file = normalize(mne.read_source_estimate(path).data.T)
     
-    return read_file.file.data
+    return torch.from_numpy(np.asarray(read_file.file.data))
 
 
 class EmotionDataset_Spatial(Dataset):
@@ -47,6 +54,8 @@ class EmotionDataset_Spatial(Dataset):
         return len(self.files)*175
 
     def __getitem__(self, idx):
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
         file_path = self.files[idx // 175]
         self.file_data = read_file(file_path)[idx % 175]
         
