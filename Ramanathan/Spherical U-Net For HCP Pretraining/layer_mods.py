@@ -30,13 +30,13 @@ class onering_conv_layer(nn.Module):
     def forward(self, x):
 
         mat = x[self.neigh_orders]
-        mat = torch.swapaxes(mat, 0, 2)
-        mat = torch.swapaxes(mat, 1, 2)
+        mat = torch.transpose(mat, 0, 2)
+        mat = torch.transpose(mat, 1, 2)
         mat = mat.reshape(mat.shape[0], -1,  7*self.in_feats)
 
         out_features = self.weight(mat)
-        out_features = torch.swapaxes(out_features, 1, 2)
-        out_features = torch.swapaxes(out_features, 0, 2)
+        out_features = torch.transpose(out_features, 1, 2)
+        out_features = torch.transpose(out_features, 0, 2)
 
         return out_features
 
@@ -62,9 +62,9 @@ class pool_layer(nn.Module):
         feat_num = x.size()[1]
         x = x[self.neigh_orders[0:num_nodes*7]]
         x = x.reshape(num_nodes, feat_num, 7, -1)
-        x = torch.swapaxes(x, 3, 2)
-        x = torch.swapaxes(x, 2, 1)
-        x = torch.swapaxes(x, 1, 0)
+        x = torch.transpose(x, 3, 2)
+        x = torch.transpose(x, 2, 1)
+        x = torch.transpose(x, 1, 0)
 
         if self.pooling_type == "mean":
             x = torch.mean(x, 3)
@@ -75,8 +75,8 @@ class pool_layer(nn.Module):
 
         #assert(x.size() == torch.Size([num_nodes, feat_num]))
 
-        x = torch.swapaxes(x, 1, 0)
-        x = torch.swapaxes(x, 1, 2)
+        x = torch.transpose(x, 1, 0)
+        x = torch.transpose(x, 1, 2)
         return x
 
 
@@ -103,8 +103,8 @@ class upconv_layer(nn.Module):
         raw_nodes = x.size()[0]
         new_nodes = int(raw_nodes*4 - 6)
 
-        x = torch.swapaxes(x, 1, 2)
-        x = torch.swapaxes(x, 1, 0)
+        x = torch.transpose(x, 1, 2)
+        x = torch.transpose(x, 1, 0)
         x = self.weight(x)
         x = x.reshape(x.shape[0], -1, self.out_feats)
         x1 = x[ :, self.upconv_top_index]
@@ -114,8 +114,8 @@ class upconv_layer(nn.Module):
         x = torch.cat((x1,torch.mean(x2, 3)), 1)
 
         #assert(x.size() == torch.Size([new_nodes, self.out_feats]))
-        x = torch.swapaxes(x, 0, 1)
-        x = torch.swapaxes(x, 1, 2)
+        x = torch.transpose(x, 0, 1)
+        x = torch.transpose(x, 1, 2)
 
         return x
 

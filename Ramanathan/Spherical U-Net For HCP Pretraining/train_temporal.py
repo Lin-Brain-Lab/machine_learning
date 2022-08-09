@@ -28,10 +28,11 @@ else:
     config.logging.debug(f" *{config.data_cat}* category of data not handled..")
     exit()
 
+min_len =  _Dataset.min_len
 _Dataset = split_dataset(_Dataset, 0.2)
 
-train_dataloader = torch.utils.data.DataLoader(_Dataset['train'], batch_size=config.batch_size_spatial, shuffle=True, pin_memory=True)
-val_dataloader = torch.utils.data.DataLoader(_Dataset['test'], batch_size=config.batch_size_spatial, shuffle=False, pin_memory=True)
+train_dataloader = torch.utils.data.DataLoader(_Dataset['train'], batch_size=config.batch_size_temporal, shuffle=True, pin_memory=True)
+val_dataloader = torch.utils.data.DataLoader(_Dataset['test'], batch_size=config.batch_size_temporal, shuffle=False, pin_memory=True)
 
 def batch_train(model, data):
     model.train()
@@ -101,7 +102,7 @@ spatial_model.to(device=device)
 spatial_model.eval()
 
 if config.temporal_model == 'LSTM_AE':
-    model = VAENet(in_size=64*42, out_time = _Dataset.min_len).to(device=device)
+    model = VAENet(in_size=64*42, out_time = min_len).to(device=device)
 # elif config.temporal_model == 'Transformer':
 #     model = TransformerNet().to(device=device) ## model needs to be configured
 else:

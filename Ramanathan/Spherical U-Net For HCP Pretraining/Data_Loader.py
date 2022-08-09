@@ -43,7 +43,7 @@ class EmotionDataset_Spatial(Dataset):
 
     def __init__(self, root_dir):
         self.root = root_dir
-        self.min_lin = 164
+        self.min_len = 164
         self.folderList = os.listdir(self.root)
         self.files = []
         for folder in self.folderList:
@@ -52,13 +52,13 @@ class EmotionDataset_Spatial(Dataset):
 
 
     def __len__(self):
-        return len(self.files)*self.min_lin
+        return len(self.files)*self.min_len
 
     def __getitem__(self, idx):
         if torch.is_tensor(idx):
             idx = idx.tolist()
-        file_path = self.files[idx // self.min_lin]
-        self.file_data = read_file(file_path)[idx % self.min_lin]
+        file_path = self.files[idx // self.min_len]
+        self.file_data = read_file(file_path)[idx % self.min_len]
         
         time_step = torch.zeros( 2, 10242)
         time_step[0,:] = self.file_data[:10242]
@@ -71,7 +71,7 @@ class SocialDataset_Spatial(Dataset):
     
     def __init__(self, root_dir):
         self.root = root_dir
-        self.min_lin = 273
+        self.min_len = 273
         self.folderList = os.listdir(self.root)
         self.files = []
         for folder in self.folderList:
@@ -80,11 +80,11 @@ class SocialDataset_Spatial(Dataset):
 
 
     def __len__(self):
-        return len(self.files)*self.min_lin
+        return len(self.files)*self.min_len
 
     def __getitem__(self, idx):
-        file_path = self.files[idx // self.min_lin]
-        self.file_data = read_file(file_path)[idx % self.min_lin]
+        file_path = self.files[idx // self.min_len]
+        self.file_data = read_file(file_path)[idx % self.min_len]
         
         time_step = torch.zeros( 2, 10242)
         time_step[0,:] = self.file_data[:10242]
@@ -96,7 +96,7 @@ class RestDataset_Spatial(Dataset):
     
     def __init__(self, root_dir):
         self.root = root_dir
-        self.min_lin = 1199
+        self.min_len = 1199
         self.folderList = os.listdir(self.root)
         self.files = []
         for folder in self.folderList:
@@ -105,11 +105,11 @@ class RestDataset_Spatial(Dataset):
 
 
     def __len__(self):
-        return len(self.files)*self.min_lin
+        return len(self.files)*self.min_len
 
     def __getitem__(self, idx):
-        file_path = self.files[idx // self.min_lin]
-        self.file_data = read_file(file_path)[idx % self.min_lin]
+        file_path = self.files[idx // self.min_len]
+        self.file_data = read_file(file_path)[idx % self.min_len]
         
         time_step = torch.zeros(2, 10242)
         time_step[0,:] = self.file_data[:10242]
@@ -122,7 +122,7 @@ class EmotionDataset_Temporal(Dataset):
 
     def __init__(self, root_dir):
         self.root = root_dir
-        self.min_lin = 164
+        self.min_len = 164
         self.folderList = os.listdir(self.root)
         self.files = []
         for folder in self.folderList:
@@ -137,9 +137,9 @@ class EmotionDataset_Temporal(Dataset):
         file_path = self.files[idx]
         self.file_data = read_file(file_path)
         
-        sample = torch.zeros(self.min_lin, 2, 10242)
-        sample[:,0,:] = self.file_data[:, :10242]
-        sample[:,1,:] = self.file_data[:, 10242:]
+        sample = torch.zeros(self.min_len, 2, 10242)
+        sample[:,0,:] = self.file_data[:self.min_len, :10242]
+        sample[:,1,:] = self.file_data[:self.min_len, 10242:]
 
         return sample
 
@@ -148,7 +148,7 @@ class SocialDataset_Temporal(Dataset):
     
     def __init__(self, root_dir):
         self.root = root_dir
-        self.min_lin = 273
+        self.min_len = 273
         self.folderList = os.listdir(self.root)
         self.files = []
         for folder in self.folderList:
@@ -163,9 +163,9 @@ class SocialDataset_Temporal(Dataset):
         file_path = self.files[idx]
         self.file_data = read_file(file_path)
         
-        sample = torch.zeros(self.min_lin, 2, 10242)
-        sample[:,0,:] = self.file_data[:, :10242]
-        sample[:,1,:] = self.file_data[:, 10242:]
+        sample = torch.zeros(self.min_len, 2, 10242)
+        sample[:,0,:] = self.file_data[:self.min_len, :10242]
+        sample[:,1,:] = self.file_data[:self.min_len, 10242:]
 
         return sample
 
@@ -173,7 +173,7 @@ class RestDataset_Temporal(Dataset):
     
     def __init__(self, root_dir):
         self.root = root_dir
-        self.min_lin = 1199
+        self.min_len = 1199
         self.folderList = os.listdir(self.root)
         self.files = []
         for folder in self.folderList:
@@ -188,8 +188,8 @@ class RestDataset_Temporal(Dataset):
         file_path = self.files[idx]
         self.file_data = read_file(file_path)
         
-        sample = torch.zeros(self.min_lin, 2, 10242)
-        sample[:,0,:] = self.file_data[:, :10242]
-        sample[:,1,:] = self.file_data[:, 10242:]
+        sample = torch.zeros(self.min_len, 2, 10242)
+        sample[:,0,:] = self.file_data[:self.min_len, :10242]
+        sample[:,1,:] = self.file_data[:self.min_len, 10242:]
 
         return sample
