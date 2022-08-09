@@ -35,7 +35,7 @@ val_dataloader = torch.utils.data.DataLoader(_Dataset['test'], batch_size=config
 
 def batch_train(model, data):
     model.train()
-    
+
     prediction, _, _ = model(data.reshape(data.shape[0], -1).float())
     
     loss = criterion(prediction, data.reshape(data.shape[0], -1).float())
@@ -92,6 +92,7 @@ def train_(model):
         
         if val_loss < val_loss_low:
             torch.save(model.state_dict(), config.checkpoint_loc + f'/best_temporal_weights.pth')
+            val_loss_low = val_loss
 
 
 spatial_model = Unet(2,2,6)

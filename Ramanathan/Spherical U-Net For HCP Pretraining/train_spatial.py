@@ -87,6 +87,7 @@ def train_(model):
         
         if val_loss < val_loss_low:
             torch.save(model.state_dict(), config.checkpoint_loc + f'/best_weights.pth')
+            val_loss_low = val_loss
 
 
 model = Unet(2, 2, 6).to(device=device)

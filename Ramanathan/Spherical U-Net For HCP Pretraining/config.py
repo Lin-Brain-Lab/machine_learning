@@ -1,7 +1,7 @@
 import logging
 
 
-batch_size_spatial      = 512                # time steps per batch for spatial AE training
+batch_size_spatial      = 2048                # time steps per batch for spatial AE training
 cuda                    = True               # cuda or cpu
 reduce_LR_On_Plateau    = True               # lr control
 lr                      = 1e-3               # learning rate
