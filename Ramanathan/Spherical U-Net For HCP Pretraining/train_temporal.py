@@ -37,9 +37,9 @@ val_dataloader = torch.utils.data.DataLoader(_Dataset['test'], batch_size=config
 def batch_train(model, data):
     model.train()
 
-    prediction, _, _ = model(data.reshape(data.shape[0], -1).float())
+    prediction, _, _ = model(data.float())
     
-    loss = criterion(prediction, data.reshape(data.shape[0], -1).float())
+    loss = criterion(prediction, data.float())
 
     optimizer.zero_grad()
     loss.backward()
@@ -51,9 +51,9 @@ def batch_val(model, data):
 
     model.eval()
 
-    prediction, _, _= model(data.reshape(data.shape[0], -1).float())
+    prediction, _, _= model(data.float())
     
-    loss = criterion(prediction, data.reshape(data.shape[0], -1).float())
+    loss = criterion(prediction, data.float())
 
     return loss.item()
 
@@ -64,9 +64,10 @@ def train_(model):
         train_loss = 0.0
         for batch_idx, data in enumerate(train_dataloader):
             
-            data = data.to(device)
-            _ , data = spatial_model(data.T)
-            data = data.T
+             data = data.to(device)
+            shape = data.shape
+            _ , data = spatial_model(data.reshape(shape[0]*shape[1], shape[2], shape[3]).T)
+            data = data.T.reshape(shape[0], shape[1], -1)
             batch_loss = batch_train(model, data)
             train_loss += batch_loss
             print(f'Epoch {epoch_idx} [{batch_idx+1}/{len(train_dataloader)}]:: MSE: {batch_loss}')
@@ -77,8 +78,9 @@ def train_(model):
         for batch_idx, data in enumerate(val_dataloader):
             
             data = data.to(device)
-            _ , data = spatial_model(data.T)
-            data = data.T
+            shape = data.shape
+            _ , data = spatial_model(data.reshape(shape[0]*shape[1], shape[2], shape[3]).T)
+            data = data.T.reshape(shape[0], shape[1], -1)
             batch_loss = batch_val(model, data)
             val_loss += batch_loss
         
