@@ -64,7 +64,7 @@ def train_(model):
         train_loss = 0.0
         for batch_idx, data in enumerate(train_dataloader):
             
-             data = data.to(device)
+            data = data.to(device)
             shape = data.shape
             _ , data = spatial_model(data.reshape(shape[0]*shape[1], shape[2], shape[3]).T)
             data = data.T.reshape(shape[0], shape[1], -1)

@@ -159,14 +159,14 @@ class VAEEnc(nn.Module):
   def forward(self, x):
     batch_size = x.size(0)
     
-    h_0 = torch.zeros(1, batch_size, 256)
-    c_0 = torch.zeros(1, batch_size, 256)
+    h_0 = torch.zeros(1, batch_size, 256).to(x.device)
+    c_0 = torch.zeros(1, batch_size, 256).to(x.device)
     
     out , (final_hidden_state, final_cell_state) = self.en_lstm1(x, (h_0, c_0))
     out = self.tanh(out)
 
-    h_1 = torch.zeros(1, batch_size, 128)
-    c_1 = torch.zeros(1, batch_size, 128)
+    h_1 = torch.zeros(1, batch_size, 128).to(x.device)
+    c_1 = torch.zeros(1, batch_size, 128).to(x.device)
     
     out , (final_hidden_state, final_cell_state) = self.en_lstm2(out, (h_1, c_1))
     out = self.tanh(out)
@@ -197,14 +197,14 @@ class VAEDec(nn.Module):
 
     out = self.tanh(self.de_fc1(x))
     
-    out = torch.zeros((batch_size, self.time, out.size(1)), requires_grad=True) + out.reshape(batch_size, 1, -1)
+    out = torch.zeros((batch_size, self.time, out.size(1)), requires_grad=True).to(x.device) + out.reshape(batch_size, 1, -1)
 
-    h_0 = torch.zeros(1, batch_size, 256)
-    c_0 = torch.zeros(1, batch_size, 256)
+    h_0 = torch.zeros(1, batch_size, 256).to(x.device)
+    c_0 = torch.zeros(1, batch_size, 256).to(x.device)
     
     out , (final_hidden_state, final_cell_state) = self.de_lstm1(out, (h_0, c_0))
     out = self.tanh(out)
-    out_TDD = torch.zeros((out.size(0), out.size(1), self.in_size))
+    out_TDD = torch.zeros((out.size(0), out.size(1), self.in_size)).to(x.device)
     for i in range(self.time):
       out_TDD[:, i, :] = self.de_TDD[i](out[:,i,:])
 
