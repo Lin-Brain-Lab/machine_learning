@@ -53,17 +53,16 @@ class Unet(nn.Module):
         for i in range(self.n_res-1):
             x = self.up[i](x, xs[self.n_res-1-i])
         
-        x = np.swapaxes(x, 1, 2)
-        x = np.swapaxes(x, 1, 0)
+        x = torch.transpose(x, 1, 2)
+        x = torch.transpose(x, 1, 0)
         x = self.outc(x)
-        x = np.swapaxes(x, 1, 0)
-        x = np.swapaxes(x, 1, 2)
+        x = torch.transpose(x, 1, 0)
+        x = torch.transpose(x, 1, 2)
         return x, xs[-1]
 
 
-mse = nn.MSELoss()
-
 # https://pytorch.org/tutorials/beginner/transformer_tutorial.html
+
 class PositionalEncoding(nn.Module):
 
   def __init__(self, d_model: int, dropout: float = 0.1, max_len: int = 5000):
@@ -134,9 +133,6 @@ class TransformerNet(nn.Module):
 
     return out, emb
 
-
-
-# https://machinelearningmastery.com/lstm-autoencoders/
 
 def recon_Loss(out, gt):
   return nn.functional.mse_loss(out, gt)
