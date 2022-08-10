@@ -80,7 +80,6 @@ Although research groups in related fields including our laboratory are making s
 * Relevant data may exist noise due to the behavior of subjects and the surrounding environment of the device. Therefore, designing a better noise reduction algorithm to remove the relevant noise and better achieving further feature dimensionality reduction can be considered.
 * Models for classification/regression can learn from the machine learning algorithms in other fields, such as the Transformer models that have developed rapidly in recent years, which may have potential in our field.
 * ...
-
 &nbsp;
 &nbsp;
 &nbsp;
