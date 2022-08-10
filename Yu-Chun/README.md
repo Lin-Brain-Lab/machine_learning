@@ -5,7 +5,7 @@
 
   Connectivity-based analysis in Neuroscience takes the connectivity matrix of the individual brain areas and uses it as an independent variable to predict specific characteristics. The connectivity matrix is obtained by correlating each pair of brain areas. Each entry of the connectivity matrix is called an “edge” and it depicts one brain region's influence on the other region. One specific model that uses the connectivity matrix to predict behavior is the Connectome-based predictive modelling (CBPM) (Finn et al., 2015; Finn & Bandettini, 2021; Shen et al., 2017), which selects the most important edges in the connectivity matrix based on significance and build a linear prediction model. Past studies that utilized this model have used individual connectivity matrices to predict behavior (Finn & Bandettini, 2021) and identify subjects from a large group (Finn et al., 2015).  For a more detailed explanation of the flow chart of the CBPM, please check out the presentation section.
   
-![image of flow chart](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/CBPM%20flowchart.png)
+![image of flow chart](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/Yu-Chun/CBPM%20flowchart.png)
 
 *Flow chart of the Connectome Based Predictive Modelling*
 
@@ -26,16 +26,16 @@
   
   In addition to using Pearson correlation to relate connectivity matrix and behavioral measures and using thresholding to select edges that are significant, we also tried out different variations of correlation methods including rank correlation and robust regression and feature selection methods including sigmoidal weighting. Our results showed that for the positive model, using robust regression and thresholding yields the best result (r = 0.508, **Figure 2**) while for the negative model using rank correlation and sigmoidal weighting yields the best result (r = -0.786, **Figure 3**). A more comprehensive result is shown in **Figure 1**.
   
-  ![table of result](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/results%20table.png)
+  ![table of result](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/Yu-Chun/results%20table.png)
   
   ***Figure 1**: Correlation Coefficient between Predicted vs. Actual value*
   
-  ![predicted vs. actual positive](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/positive%20model%20predicted%20vs.%20actual.png)
+  ![predicted vs. actual positive](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/Yu-Chun/positive%20model%20predicted%20vs.%20actual.png)
   
   
   ***Figure 2**: Predicted vs. Actual plot and the fitted line for positive model (Robust regression/Threshold)*
   
-  ![predicted vs. actual negative](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/negative%20model%20predicted%20vs.%20actual.png)
+  ![predicted vs. actual negative](https://github.com/Lin-Brain-Lab/machine_learning/blob/main/Yu-Chun/negative%20model%20predicted%20vs.%20actual.png)
   
   ***Figure 3**: Predicted vs. Actual plot and the fitted line for negative model (Rank Correlation/Sigmoidal weighting)*
   
